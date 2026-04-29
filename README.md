@@ -45,7 +45,7 @@ The layout follows the **FHS (Filesystem Hierarchy Standard)**, maintained by th
 
 ## Section 1 — ls -la / (The Root Filesystem Live)
 
-![ls -la /](images/root-ls-la.png)
+![ls -la /](screenshots/root.png)
 
 ```
 total 4194404
@@ -264,7 +264,7 @@ drwx------  9  root  root  4096  Apr  7 17:02  root
 
 ## Section 2 — /bin (Live Output)
 
-![/bin directory](images/bin-ls-la.png)
+![/bin directory](screenshots/bin.png)
 
 ```
 jillravaliya@...:/$ cd /bin
@@ -395,7 +395,7 @@ Today /bin = /usr/bin via symlink, but the concept holds.
 
 ## Section 3 — /sbin (Live Output)
 
-![/sbin directory](images/sbin-ls.png)
+![/sbin directory](screenshots/sbin.png)
 
 ```
 jillravaliya@...:/sbin$ ls
@@ -544,7 +544,7 @@ They're what engineers at Netflix, Google, Meta use to debug production.
 
 ## Section 4 — /lib (Live Output)
 
-![/lib directory](images/lib-ls.png)
+![/lib directory](screenshots/lib.png)
 
 ```
 jillravaliya@...:/$ cd /lib
@@ -729,7 +729,7 @@ Without ld-linux: every program would need to be statically linked
 
 ## Section 5 — /boot (Live Output)
 
-![/boot directory](images/boot-ls-la.png)
+![/boot directory](screenshots/boot.png)
 
 > **See the dedicated `/boot` deep-dive README** for the complete byte-level analysis of every file in this directory. This README is part of the same series.
 
@@ -769,7 +769,7 @@ memtest86+*    ← standalone RAM tester (GRUB can boot this instead of Linux)
 
 ## Section 6 — /etc (Live Output)
 
-![/etc directory](images/etc-ls.png)
+![/etc directory](screenshots/etc.png)
 
 ```
 jillravaliya@...:/$ cd /etc
@@ -938,7 +938,7 @@ Best practice before ANY edit:
 
 ## Section 7 — /dev (Live Output)
 
-![/dev directory](images/dev-ls.png)
+![/dev directory](screenshots/dev.png)
 
 ```
 jillravaliya@...:/$ cd /dev
@@ -1249,7 +1249,7 @@ They open("/dev/something") → kernel handles the hardware.
 
 ## Section 8 — /proc (Live Output)
 
-![/proc directory](images/proc-ls.png)
+![/proc directory](screenshots/proc.png)
 
 ```
 jillravaliya@...:/proc$ ls
@@ -1425,7 +1425,7 @@ slabinfo    ← slab allocator stats (kernel object caches)
 
 ## Section 9 — /sys (Live Output)
 
-![/sys directory](images/sys-ls-la.png)
+![/sys directory](screenshots/sys.png)
 
 ```
 jillravaliya@...:/$ cd /sys
@@ -1624,7 +1624,7 @@ Created:    at boot (procfs)    at boot (sysfs)      devtmpfs + udev
 
 ## Section 10 — /usr (Live Output)
 
-![/usr directory](images/usr-ls-la.png)
+![/usr directory](screenshots/usr.png)
 
 ```
 jillravaliya@...:/$ cd /usr
@@ -1729,7 +1729,7 @@ src/      ← source code (10 packages with sources installed)
 
 ## Section 11 — /home (Live Output)
 
-![/home directory](images/home-ls-la.png)
+![/home directory](screenshots/home.png)
 
 ```
 jillravaliya@...:/$ cd /home
@@ -1802,7 +1802,7 @@ Apr 21 = the last time a new subdirectory was created or removed.
 
 ## Section 12 — /var (Live Output)
 
-![/var directory](images/var-ls-la.png)
+![/var directory](screenshots/var.png)
 
 ```
 jillravaliya@...:/$ cd /var
@@ -1964,7 +1964,7 @@ But existing directories (like log/) are modified much more recently (Apr 26).
 
 ## Section 13 — /opt (Live Output)
 
-![/opt directory](images/opt-ls-la.png)
+![/opt directory](screenshots/opt.png)
 
 ```
 jillravaliya@...:/$ cd /opt
@@ -2019,7 +2019,7 @@ Feb 20 08:11 → Brave browser installed (8 months after install)
 
 ## Section 14 — /mnt (Live Output)
 
-![/mnt directory](images/mnt-ls-la.png)
+![/mnt directory](screenshots/mnt.png)
 
 ```
 jillravaliya@...:/$ cd /mnt
@@ -2083,7 +2083,7 @@ These mnt entries suggest intentional work:
 
 ## Section 15 — /media (Live Output)
 
-![/media directory](images/media-ls-la.png)
+![/media directory](screenshots/media.png)
 
 ```
 jillravaliya@...:/$ cd /media
@@ -2149,7 +2149,7 @@ Note: sda2 is in /mnt not /media — manually mounted (see /mnt section).
 
 ## Section 16 — /srv (Live Output)
 
-![/srv directory](images/srv-ls-la.png)
+![/srv directory](screenshots/srv.png)
 
 ```
 jillravaliya@...:/$ cd /srv
@@ -2192,7 +2192,7 @@ When would you USE /srv?
 
 ## Section 17 — /run (Live Output)
 
-![/run directory](images/run-ls-a.png)
+![/run directory](screenshots/run.png)
 
 ```
 jillravaliya@...:/$ cd /run
@@ -2437,79 +2437,6 @@ Desktop running
   /var/log → everything logged continuously
   /tmp, /run → temporary runtime data
   /home → your files and configs
-```
-
----
-
-## Commands to Explore Live
-
-```bash
-# Start from root and understand what you have
-ls -la /
-
-# Check the usr-merge symlinks
-ls -la /bin /lib /sbin
-# Confirms they're symlinks to /usr/*
-
-# Count how many binaries you have
-ls /usr/bin | wc -l   # number of commands available
-
-# See what /dev has that talks to your display
-ls /dev/dri/
-ls /dev/fb*
-
-# Check all loop devices (= snap packages)
-ls /dev/loop* | wc -l
-
-# Read your CPU info
-cat /proc/cpuinfo | grep "model name" | head -1
-
-# Check RAM breakdown
-cat /proc/meminfo | head -15
-
-# What kernel parameters did GRUB pass?
-cat /proc/cmdline
-
-# How long has system been running?
-cat /proc/uptime | awk '{print $1/3600 " hours"}'
-
-# See all loaded kernel modules
-cat /proc/modules | wc -l
-# Compare with:
-ls /sys/module | wc -l
-
-# Check UEFI variables (from Linux!)
-ls /sys/firmware/efi/efivars/ | head -10
-
-# See current power state options
-cat /sys/power/state
-
-# Battery level (if present)
-cat /sys/class/power_supply/BAT0/capacity 2>/dev/null
-
-# CPU frequency right now
-cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
-
-# What's in /run that's a socket?
-find /run -name "*.sock" -o -name "*.socket" 2>/dev/null | head -15
-
-# Check /var disk usage breakdown
-du -sh /var/*  2>/dev/null | sort -h
-
-# Find the biggest things in /var
-du -sh /var/lib/* 2>/dev/null | sort -h | tail -10
-
-# See who's in /home
-ls -la /home
-
-# Check ACL on /media/username
-getfacl /media/jillravaliya 2>/dev/null
-
-# What's using swap?
-cat /proc/swaps
-
-# See network devices in /sys
-ls /sys/class/net/
 ```
 
 ---
