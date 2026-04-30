@@ -19,7 +19,7 @@
 
 ## Section 1 — ls -la /boot (Live Output)
 
-![ls -la /boot](images/boot-ls-la.png)
+![ls -la /boot](screenshot/boot.png)
 
 This is the full `/boot` directory from your machine. Let's read every single line carefully.
 
@@ -258,7 +258,7 @@ Why does it differ from adding all file sizes? ext4 allocates in **4096-byte blo
 
 ## Section 2 — /boot/efi/ Structure (Live Output)
 
-![/boot/efi directory structure](images/boot-efi-structure.png)
+![/boot/efi directory structure](screenshot/efi.png)
 
 This screenshot shows three levels explored in sequence: `/boot/efi/` → `/boot/efi/EFI/` → `/boot/efi/EFI/BOOT/` → `/boot/efi/EFI/ubuntu/`.
 
@@ -578,7 +578,7 @@ This IS GRUB, compiled specifically for 64-bit UEFI (`x86_64-efi`).
 
 ## Section 3 — /boot/grub/ and grubenv (Live Output)
 
-![/boot/grub directory and cat grubenv](images/boot-grub-grubenv.png)
+![/boot/grub directory and cat grubenv](screenshot/grub.png)
 
 ---
 
